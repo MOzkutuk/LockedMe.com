@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VirtualKeyForYourRepositories:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/VirtualKeyForYourRepositories_jar</output-path>
+    <root id="archive" name="VirtualKeyForYourRepositories.jar">
+      <element id="module-output" name="VirtualKeyForYourRepositories" />
+    </root>
+  </artifact>
+</component>
