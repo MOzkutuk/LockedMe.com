@@ -17,7 +17,8 @@ public class Main {
 
     }
 
-    public static void openingMessage() {                    //It displays the oppening message
+    public static void openingMessage() {
+        //It displays the oppening message
 
         System.out.println("******************************\n"
                 + "Welcome to the LockedMe                                   --Designed by Mehmet Baran Ozkutuk\n"
@@ -75,7 +76,7 @@ public class Main {
                             }else if (!file.exists() || !file.isDirectory()){       //checking if the input is correct form
                                 System.out.println("The directory does not exist or it is not a directory..\nWould you like to try again ? (Y / N) :");
                                 String cevap = scn.nextLine();
-                                if(cevap.toLowerCase().equals("y")){
+                                if(cevap.equalsIgnoreCase("y")){
                                     continue listLoop;
                                 }else if (cevap.toLowerCase().equals("n")){
                                     System.out.println("I am taking you to the main menu..");
