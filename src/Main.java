@@ -1,8 +1,10 @@
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author MehmetBaranOzkutuk on 04/06/2021
@@ -46,7 +48,7 @@ public class Main {
             scn.nextLine();
             switch (secim1) {                       //switch-case method to get efficient answer and it is performance-friendly
                 case 1:
-                    System.out.println("This operation will list all the files you have specified in that particular directory..\nWould you like to continue (Y / N) :");
+                    System.out.println("This operation will list all the file folders and files you have specified in that particular directory..\nWould you like to continue (Y / N) :");
                     listLoop:               // list loop for option 1 in the main menu
                     while(true){
                         String cevap2 = scn.nextLine();             //we are giving user options to go back or go further to the operation
@@ -54,13 +56,30 @@ public class Main {
                             System.out.println("Enter the root directory if you want to see the current files :");
                             String rootDirectory = scn.nextLine();
                             File file = new File(rootDirectory);
-                            if(file.exists() && file.isDirectory()){
+                            if(file.exists() && file.isDirectory() ){
                                 File[] listOfFiles = file.listFiles();              //creating an array which will be filled with files
-                                for (int i = 0; i < listOfFiles.length; i++) {      //basic for loop to list the name of the files
-                                    if (listOfFiles[i].isFile()) {
-                                        System.out.println("File name :" + listOfFiles[i].getName());
+                                String[] directories = file.list(new FilenameFilter() {
+                                    @Override
+                                    public boolean accept(File dir, String name) {
+                                        return new File(dir, name).isDirectory();
                                     }
+                                });
+
+
+
+                                if(listOfFiles.length != 0 || directories.length != 0){
+                                    System.out.println("Files/Folders :\n" + toString(directories));
+                                    Arrays.sort(listOfFiles);   //Sorting the files
+                                    for (int i = 0; i < listOfFiles.length; i++) {      //basic for loop to list the name of the files
+                                        if (listOfFiles[i].isFile()) {
+                                            System.out.println( listOfFiles[i].getName());
+                                        }
+                                    }
+                                }else{
+                                    System.out.println("The folder is empty..");
                                 }
+
+
                                 try {
                                     Thread.sleep(1000);
                                 } catch (InterruptedException e) {
@@ -75,10 +94,10 @@ public class Main {
                                 continue outerLoop;
                             }else if (!file.exists() || !file.isDirectory()){       //checking if the input is correct form
                                 System.out.println("The directory does not exist or it is not a directory..\nWould you like to try again ? (Y / N) :");
-                                String cevap = scn.nextLine();
-                                if(cevap.equalsIgnoreCase("y")){
+                                //String cevap = scn.nextLine();
+                                if(cevap2.equalsIgnoreCase("y")){
                                     continue listLoop;
-                                }else if (cevap.toLowerCase().equals("n")){
+                                }else if (cevap2.toLowerCase().equals("n")){
                                     System.out.println("I am taking you to the main menu..");
                                     continue outerLoop;
                                 }else {
@@ -86,7 +105,7 @@ public class Main {
                                 }
                             }
                         }else if (cevap2.toLowerCase().equals("n")){
-                            System.out.println("I am taking you abck to the main menu..");
+                            System.out.println("I am taking you back to the main menu..");
                             try {
                                 Thread.sleep(2000);
                             } catch (InterruptedException e) {
@@ -112,26 +131,29 @@ public class Main {
                             String fileName = scn.nextLine();
                             System.out.println("Enter the file path :");
                             String filePath = scn.nextLine();
+
                             File file1 = new File(filePath +"\\"+ fileName + ".txt"); //creating the file
+                            file1.getParentFile().mkdirs();
+
                             if (file1.exists()) {                               //a basic if-else block to check whether the file is already created or not
                                 System.out.println("This file already exists...\nWould you like to try again ? (Y / N) :");
                                 String cevap2 = scn.nextLine();
                                 continue innerLoop;
                             }
-                            file1.getParentFile().mkdirs();
+
                             try {                           //using file writer class to create the new file(can use try-with resources)
                                 FileWriter writer = new FileWriter(file1, true);
                                 System.out.println("The file '" + fileName + "' has been succesfully created...");
                                 writer.close();                 //must close the file in order to proceed the further operations
                             } catch (IOException e) {
-                                System.out.println("Unexpected error occured,please try again...\n");
+                                System.out.println("Unexpected error occured..\n");
                             }
                             try {
                                 Thread.sleep(1000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println("You are going back to the main menu please wait...");
+                            System.out.println("We are taking you back to the main menu please wait...");
                             try {
                                 Thread.sleep(1000);
                             } catch (InterruptedException e) {
@@ -303,5 +325,8 @@ public class Main {
                 + "5. Exit\n"
                 + "__________________\n"
                 + "Please select an option by entering number :");
+    }
+    public static <T> String toString(T arr[]) {
+        return Arrays.stream(arr).map(s -> "0" + s).collect(Collectors.joining("\n"));
     }
 }
