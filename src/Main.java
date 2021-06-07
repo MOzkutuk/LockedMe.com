@@ -41,22 +41,38 @@ public class Main {
             }
         }
         //outer loop
-        outerLoop:                              //We created a loop, so user won't have to restart the application over
+        outerLoop:
+        //We created a loop, so user won't have to restart the application over
         while (true) {
-            menuyuGoster2();                        //The main menu will be displayed
-            int secim1 = scn.nextInt();
-            scn.nextLine();
-            switch (secim1) {                       //switch-case method to get efficient answer and it is performance-friendly
+            menuyuGoster2();                    //The main menu will be displayed
+            int secim1 = 0;
+
+            try{
+                secim1 = scn.nextInt();
+                scn.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("You have entered an udidentified data\nPlease use numbers..");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+                scn.next();
+            }
+
+
+            switch (secim1) {                       //switch-case method to get efficient answer
                 case 1:
                     System.out.println("This operation will list all the file folders and files you have specified in that particular directory..\nWould you like to continue (Y / N) :");
-                    listLoop:               // list loop for option 1 in the main menu
-                    while(true){
+                    listLoop:
+                    // list loop for option 1 in the main menu
+                    while (true) {
                         String cevap2 = scn.nextLine();             //we are giving user options to go back or go further to the operation
-                        if(cevap2.toLowerCase().equals("y")){
+                        if (cevap2.toLowerCase().equals("y")) {
                             System.out.println("Enter the root directory if you want to see the current files :");
                             String rootDirectory = scn.nextLine();
                             File file = new File(rootDirectory);
-                            if(file.exists() && file.isDirectory() ){
+                            if (file.exists() && file.isDirectory()) {
                                 File[] listOfFiles = file.listFiles();              //creating an array which will be filled with files
                                 String[] directories = file.list(new FilenameFilter() {
                                     @Override
@@ -66,16 +82,15 @@ public class Main {
                                 });
 
 
-
-                                if(listOfFiles.length != 0 || directories.length != 0){
+                                if (listOfFiles.length != 0 || directories.length != 0) {
                                     System.out.println("Files/Folders :\n" + toString(directories));
                                     Arrays.sort(listOfFiles);   //Sorting the files
                                     for (int i = 0; i < listOfFiles.length; i++) {      //basic for loop to list the name of the files
                                         if (listOfFiles[i].isFile()) {
-                                            System.out.println( listOfFiles[i].getName());
+                                            System.out.println(listOfFiles[i].getName());
                                         }
                                     }
-                                }else{
+                                } else {
                                     System.out.println("The folder is empty..");
                                 }
 
@@ -92,19 +107,19 @@ public class Main {
                                     e.printStackTrace();
                                 }
                                 continue outerLoop;
-                            }else if (!file.exists() || !file.isDirectory()){       //checking if the input is correct form
+                            } else if (!file.exists() || !file.isDirectory()) {       //checking if the input is correct form
                                 System.out.println("The directory does not exist or it is not a directory..\nWould you like to try again ? (Y / N) :");
                                 //String cevap = scn.nextLine();
-                                if(cevap2.equalsIgnoreCase("y")){
+                                if (cevap2.equalsIgnoreCase("y")) {
                                     continue listLoop;
-                                }else if (cevap2.toLowerCase().equals("n")){
+                                } else if (cevap2.toLowerCase().equals("n")) {
                                     System.out.println("I am taking you to the main menu..");
                                     continue outerLoop;
-                                }else {
+                                } else {
                                     System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
                                 }
                             }
-                        }else if (cevap2.toLowerCase().equals("n")){
+                        } else if (cevap2.toLowerCase().equals("n")) {
                             System.out.println("I am taking you back to the main menu..");
                             try {
                                 Thread.sleep(2000);
@@ -112,7 +127,7 @@ public class Main {
                                 e.printStackTrace();
                             }
                             continue outerLoop;
-                        }else {                                                                                             // giving user an option to try again
+                        } else {                                                                                             // giving user an option to try again
                             System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
                         }
 
@@ -132,7 +147,7 @@ public class Main {
                             System.out.println("Enter the file path :");
                             String filePath = scn.nextLine();
 
-                            File file1 = new File(filePath +"\\"+ fileName + ".txt"); //creating the file
+                            File file1 = new File(filePath + "\\" + fileName + ".txt"); //creating the file
                             file1.getParentFile().mkdirs();
 
                             if (file1.exists()) {                               //a basic if-else block to check whether the file is already created or not
@@ -186,9 +201,9 @@ public class Main {
                             String fileInputName = scn.nextLine();
                             System.out.println("Enter the file path :");
                             String fileInputPath = scn.nextLine();
-                            File tempFile = new File(fileInputPath +"\\" + fileInputName + ".txt");
+                            File tempFile = new File(fileInputPath + "\\" + fileInputName + ".txt");
                             boolean exists = tempFile.exists();
-                                                    //creating a temporary file ro check whether the input file does exist or not
+                            //creating a temporary file ro check whether the input file does exist or not
                             if (exists) {
                                 tempFile.delete();      //if it does,delete
                                 try {
@@ -315,10 +330,11 @@ public class Main {
         }
     }
 
+
     public static void menuyuGoster2() {                //The main menu
         System.out.println("LOCKEDME");
         System.out.println("__________________\n"
-                +"1. Show Files\n"
+                + "1. Show Files\n"
                 + "2. Add File\n"
                 + "3. Delete File\n"
                 + "4. Search File\n"
@@ -326,7 +342,9 @@ public class Main {
                 + "__________________\n"
                 + "Please select an option by entering number :");
     }
+
     public static <T> String toString(T arr[]) {
         return Arrays.stream(arr).map(s -> "0" + s).collect(Collectors.joining("\n"));
     }
 }
+
