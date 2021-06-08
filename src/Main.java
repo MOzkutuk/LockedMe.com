@@ -152,7 +152,6 @@ public class Main {
 
                             if (file1.exists()) {                               //a basic if-else block to check whether the file is already created or not
                                 System.out.println("This file already exists...\nWould you like to try again ? (Y / N) :");
-                                String cevap2 = scn.nextLine();
                                 continue innerLoop;
                             }
 
@@ -161,7 +160,7 @@ public class Main {
                                 System.out.println("The file '" + fileName + "' has been succesfully created...");
                                 writer.close();                 //must close the file in order to proceed the further operations
                             } catch (IOException e) {
-                                System.out.println("Unexpected error occured..\n");
+                                System.out.println("Unexpected error occured..\nPlease check your file path");
                             }
                             try {
                                 Thread.sleep(1000);
@@ -225,7 +224,7 @@ public class Main {
                                 }
                                 continue outerLoop;
                             } else if (exists == false) {           //if not giving user options to choose
-                                System.out.println("The file does not exist.\nWould you like to try again ? (Y / N) :");
+                                System.out.println("The file does not exist or the file path is incorrect..\nWould you like to try again ? (Y / N) :");
                                 if (cevap2.toLowerCase().equals("y")) {
                                     continue deleteWhile;
                                 } else if (cevap2.toLowerCase().equals("n")) {
