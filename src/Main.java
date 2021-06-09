@@ -47,10 +47,10 @@ public class Main {
             menuyuGoster2();                    //The main menu will be displayed
             int secim1 = 0;
 
-            try{
+            try {
                 secim1 = scn.nextInt();
                 scn.nextLine();
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("You have entered an udidentified data\nPlease use numbers..");
                 try {
                     Thread.sleep(2000);
@@ -308,6 +308,57 @@ public class Main {
                         }
                     }
                 case 5:
+                    System.out.println("This operation will add a new folder in a given directory\nWould you like to proceed ? (Y / N) :");
+                    folderLoop:
+                    while (true){
+                        String cevap = scn.next();
+                        if(cevap.equalsIgnoreCase("y")){
+                            System.out.println("Enter the path to create a directory: ");
+                            Scanner sc = new Scanner(System.in);
+                            String path = sc.next();
+                            System.out.println("Enter the name of the desired a directory: ");
+                            String folerPath = scn.next();
+                            //Creating a File object
+                            File file = new File(path);
+                            //Creating the directory
+                            if(file.isDirectory()){
+                                File file1 = new File(path+folerPath);
+                                boolean bool = file1.mkdir();
+                                if(bool){
+                                    System.out.println(file1.getName() + "has been created successfully..");
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    System.out.println("I am taking you back to the main menu..");
+                                    continue outerLoop;
+                                }else if(file.exists()){
+                                    System.out.println(file1.getName() + " already exists..\nWould you like to try again ? (Y / N) :");
+                                    continue folderLoop;
+                            }else{
+                                    System.out.println("An unexpected error occured..\nWould you like to try again ? (Y / N) :");
+                                    continue folderLoop;
+                            }
+                            }else if (!file.isDirectory()){
+                                System.out.println("The path you have entered does not exist..\nWould you like to try again ? (Y / N) :");
+                                continue folderLoop;
+                            }
+                        }else if(cevap.equalsIgnoreCase("n")){
+                            System.out.println("I am taking you back to the main menu..");
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            continue outerLoop;
+                        }else{
+                            System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
+                        }
+                    }
+
+
+                case 6:
                     //exiting the program
                     System.out.print("Thank you for using LocekdMe\nWe hope to see you again...\n");
                     for (int i = 3; i > 0; i--) {
@@ -337,7 +388,8 @@ public class Main {
                 + "2. Add File\n"
                 + "3. Delete File\n"
                 + "4. Search File\n"
-                + "5. Exit\n"
+                + "5. Add Folder\n"
+                + "6. Exit\n"
                 + "__________________\n"
                 + "Please select an option by entering number :");
     }
