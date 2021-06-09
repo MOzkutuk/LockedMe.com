@@ -247,68 +247,71 @@ public class Main {
                     }
 
                 case 4:
+                    System.out.println("This operation will search for the file you are about yo give the details of..\nWould you like to continue ? (Y / N) :");
                     //searching for a file
                     searchLoop:
                     // created a search loop for searching option only
                     while (true) {
-                        System.out.println("Enter the name of the file you want to look for :");
-                        String nameFile = scn.next();
-                        System.out.println("Enter the directory :");
-                        String directoryFile = scn.next();              //creating a temporary file to check whether the file does exist or not
-                        File tempFile = new File(directoryFile + "\\" + nameFile + ".txt");
-                        boolean exists = tempFile.exists();
-                        Desktop desktop = Desktop.getDesktop();
-                        if (exists) {                               //if so further operations
-                            System.out.println("The file has been found..\nWould you like to open it ? (Y / N) :");
-                            String cevap = scn.next();
-                            if (cevap.toLowerCase().equals("y")) {
-                                System.out.println("We are openning the file for you..");
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                        String cevap3 = scn.nextLine();
+                        if(cevap3.equalsIgnoreCase("y")){
+                            System.out.println("Enter the name of the file you want to look for :");
+                            String nameFile = scn.nextLine();
+                            nameFile.trim();
+                            System.out.println("Enter the directory :");
+                            String directoryFile = scn.next();              //creating a temporary file to check whether the file does exist or not
+                            File tempFile = new File(directoryFile + "\\" + nameFile );
+                            boolean exists = tempFile.exists();
+                            Desktop desktop = Desktop.getDesktop();
+                            if (exists) {                               //if so further operations
+                                System.out.println("The file has been found..\nWould you like to open it ? (Y / N) :");
+                                String cevap = scn.next();
+                                if (cevap.toLowerCase().equals("y")) {
+                                    System.out.println("We are openning the file for you..");
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        desktop.open(tempFile);
+                                        System.out.println("I am taking you back to the main menu..\nYou can finish your work peacefully..");
+                                        Thread.sleep(2000);
+                                    } catch (IOException e) {
+                                        System.out.println("Unexpected error occures,please exit the program and try again..");
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    continue outerLoop;
+                                } else if (cevap.toLowerCase().equals("n")) {
+                                    System.out.println("I am taking you back to the main menu..");
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    continue outerLoop;
+                                } else {
+                                    System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
                                 }
-                                try {
-                                    desktop.open(tempFile);
-                                    System.out.println("I am taking you back to the main menu..\nYou can finish your work peacefully..");
-                                    Thread.sleep(2000);
-                                } catch (IOException e) {
-                                    System.out.println("Unexpected error occures,please exit the program and try again..");
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                continue outerLoop;
-                            } else if (cevap.toLowerCase().equals("n")) {
-                                System.out.println("I am taking you back to the main menu..");
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                continue outerLoop;
-                            } else {
-                                System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
-                            }
-                        } else if (!exists) {           //if doesn't exist further operations
-                            System.out.println("We coulnt find the file for you,would you like to try again (Y / N) :");
-                            String cevap2 = scn.next();
-                            if (cevap2.toLowerCase().equals("y")) {
+                            } else if (!exists) {           //if doesn't exist further operations
+                                System.out.println("We coulnt find the file for you,would you like to try again (Y / N) :");
+                                scn.nextLine();
                                 continue searchLoop;
-                            } else if (cevap2.toLowerCase().equals("n")) {
-                                System.out.println("I am taking you back to the main menu..");
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                continue outerLoop;
-                            } else {
-                                System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
+                        }
+                        }else if(cevap3.equalsIgnoreCase("n")){
+                            System.out.println("I am taking you back to the main menu..");
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
+                            continue outerLoop;
+                        }else{
+                            System.out.println("You have entered an udidentified data\nPlease enter your answer (Y / N) :");
                         }
                     }
                 case 5:
-                    System.out.println("This operation will add a new folder in a given directory\nWould you like to proceed ? (Y / N) :");
+                    System.out.println("This operation will add a new directory in a given directory\nWould you like to proceed ? (Y / N) :");
                     folderLoop:
                     while (true){
                         String cevap = scn.next();
@@ -388,7 +391,7 @@ public class Main {
                 + "2. Add File\n"
                 + "3. Delete File\n"
                 + "4. Search File\n"
-                + "5. Add Folder\n"
+                + "5. Add Directory\n"
                 + "6. Exit\n"
                 + "__________________\n"
                 + "Please select an option by entering number :");
