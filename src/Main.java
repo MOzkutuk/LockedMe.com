@@ -204,7 +204,7 @@ public class Main {
                             String fileInputName = scn.nextLine();
                             System.out.println("Enter the file path :");
                             String fileInputPath = scn.nextLine();
-                            File tempFile = new File(fileInputPath + "\\" + fileInputName + ".txt");
+                            File tempFile = new File(fileInputPath + "\\" + fileInputName );
                             boolean exists = tempFile.exists();
                             //creating a temporary file ro check whether the input file does exist or not
                             if (exists) {
@@ -329,10 +329,10 @@ public class Main {
                             File file = new File(path);
                             //Creating the directory
                             if(file.isDirectory()){
-                                File file1 = new File(path+folerPath);
+                                File file1 = new File(path+"\\"+folerPath);
                                 boolean bool = file1.mkdir();
                                 if(bool){
-                                    System.out.println(file1.getName() + "has been created successfully..");
+                                    System.out.println(file1.getName() + " has been created successfully..");
                                     try {
                                         Thread.sleep(1000);
                                     } catch (InterruptedException e) {
