@@ -150,12 +150,12 @@ public class Main {
                             File file1 = new File(filePath + "\\" + fileName + ".txt"); //creating the file
                             file1.getParentFile().mkdirs();
 
-                            if (file1.exists()) {                               //a basic if-else block to check whether the file is already created or not
-                                System.out.println("This file already exists...\nWould you like to try again ? (Y / N) :");
-                                continue innerLoop;
-                            }
                             if(!file2.isDirectory()){
                                 System.out.println("The directory does not exist..\nWould you like to try again ? (Y / N) :");
+                                continue innerLoop;
+                            }
+                            if (file1.exists()) {                               //a basic if-else block to check whether the file is already created or not
+                                System.out.println("This file already exists...\nWould you like to try again ? (Y / N) :");
                                 continue innerLoop;
                             }
 
