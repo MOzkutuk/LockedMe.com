@@ -146,12 +146,16 @@ public class Main {
                             String fileName = scn.nextLine();
                             System.out.println("Enter the file path :");
                             String filePath = scn.nextLine();
-
+                            File file2 = new File(filePath + fileName);
                             File file1 = new File(filePath + "\\" + fileName + ".txt"); //creating the file
                             file1.getParentFile().mkdirs();
 
                             if (file1.exists()) {                               //a basic if-else block to check whether the file is already created or not
                                 System.out.println("This file already exists...\nWould you like to try again ? (Y / N) :");
+                                continue innerLoop;
+                            }
+                            if(!file2.isDirectory()){
+                                System.out.println("The directory does not exist..\nWould you like to try again ? (Y / N) :");
                                 continue innerLoop;
                             }
 
