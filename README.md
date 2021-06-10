@@ -11,6 +11,7 @@ A basic program to allow users to choose the further operations to execute(add f
 3.Searching for a file in a given directory or a folder.    
 4.List all the files in an ascending order from a given directory or a folder in sorted form(by name).  
 5.Open and edit a specified file in a given directory or a folder.  
+6.Create a directory in a specific path
    
    # Note
    
