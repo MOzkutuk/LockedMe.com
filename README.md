@@ -6,7 +6,7 @@ A basic program to allow users to choose the further operations to execute(add f
 
 # Features
 
-1.Adding a file to a user specified directory or folder.   
+1.Adding or creating a file to a user specified directory or folder.   
 2.Deleting any file type in a user specified directory or folder.   
 3.Searching for a file in a given directory or a folder.    
 4.List all the files in an ascending order from a given directory or a folder in sorted form(by name).  
